@@ -1,10 +1,15 @@
 from django.contrib import admin
 from .models import Size, Category, \
-    ClothingItem, ClothingItemSize
+    ClothingItem, ClothingItemSize, ItemImage
 
 
 class ClothingItemSizeInline(admin.TabularInline):
     model = ClothingItemSize
+    extra = 4
+
+
+class ItemImageInline(admin.TabularInline):
+    model = ItemImage
     extra = 4
 
 
@@ -29,4 +34,4 @@ class ClothingItemAdmin(admin.ModelAdmin):
     list_filter = ('available', 'category')
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('-created_at',)
-    inlines = [ClothingItemSizeInline]
+    inlines = [ClothingItemSizeInline, ItemImageInline]
