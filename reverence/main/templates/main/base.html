@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% comment %} bootstrap {% endcomment %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+    {% comment %} css {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header class="header sticky-top d-flex align-items-center">
+        <div class="header-logo">
+            <img src="{% static 'img/rev.png' %}" alt="">
+        </div>
+        <div class="search">
+            <form action="" id="search-form" class="search_form" style="display: none;">
+                <input type="text" name="q" class="form_input" placeholder="Search">
+                <button type="submit" class="btnforsearch"></button>
+            </form>
+        </div>
+        <div class="header-nav d-flex gap-4">
+            <a href="#" class="h-profile">
+                <img src="{% static 'img/profile.png' %}" alt="">
+            </a>
+            <a href="#" class="h-profile">
+                <img src="{% static 'img/cart.png' %}" alt="">
+            </a>
+            <div class="forsearch">
+                <a href="#" id="toggle-search" class="toggle-search">
+                    <img src="{% static 'img/search.png' %}" alt="">
+                </a>
+                <div class="search-popup" id="search-popup" style="display: none;">
+                    <form class="search-form" method="GET" action="" id="search-form">
+                        <div class="input-container">
+                            <input type="text" class="form_input" name="q" placeholder="Search">
+                            <button type="submit" class="btnforsearch"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+
+    <script>
+        document.getElementById('toggle-search').addEventListener('click', function(event) {
+            event.preventDefault();
+            const searchPopup = document.getElementById('search-popup');
+
+            if (searchPopup.style.display === 'none' || searchPopup.style.display === '') {
+                searchPopup.style.display = 'block';
+            } else {
+                searchPopup.style.display = 'none';
+            }
+        })
+    </script>
+
+    {% comment %} js for bootstrap {% endcomment %}
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
