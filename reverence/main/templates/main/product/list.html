@@ -36,15 +36,17 @@
 
         <div class="product-list">
             <div class="card-container d-flex flex-wrap">
-                {% for item in cloting_items %}
+                {% for item in clothing_items %}
                     <div class="card">
-                        {% if item.image %}
-                            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="product-image">
-                        {% endif %}
-                        <div class="card-info">
-                            <h5>{{ item.name }}</h5>
-                            <p>${{ item.get_price_with_discount }}</p>
-                        </div>
+                        <a href="{% url "main:clothing_item_detail" item.slug %}" class="card-on-catalog">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="product-image">
+                            {% endif %}
+                            <div class="card-info">
+                                <h5>{{ item.name }}</h5>
+                                <p>${{ item.get_price_with_discount }}</p>
+                            </div>
+                        </a>
                     </div>
                 {% empty %}
                     <p>No products.</p>

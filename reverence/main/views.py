@@ -7,7 +7,7 @@ from django.db.models import Q
 class CatalogView(ListView):
     model = ClothingItem
     template_name = 'main/product/list.html'
-    context_object_name = 'cloting_items'
+    context_object_name = 'clothing_items'
 
 
     def get_queryset(self):
