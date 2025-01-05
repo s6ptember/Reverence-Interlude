@@ -8,7 +8,7 @@
     <div class="catalog d-flex">
         <form action="{% url "main:catalog" %}" method="get" class="sidebar" id="filter-form">
             <h4 class="price-head">Price Range:</h4>
-            <div class="price-range">
+            <div class="price-range d-flex justify-content-between">
                 <input type="number" name="min_price" id="min_price" placeholder="Min Price" value="{{ request.GET.min_price }}" oninput="debounceApplyFilters()">
                 <input type="number" name="max_price" id="max_price" placeholder="Max Price" value="{{ request.GET.max_price }}" oninput="debounceApplyFilters()">
             </div>
