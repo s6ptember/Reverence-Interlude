@@ -44,7 +44,16 @@
                             {% endif %}
                             <div class="card-info">
                                 <h5>{{ item.name }}</h5>
-                                <p>${{ item.get_price_with_discount }}</p>
+                                {% if item.discount %}
+                                    <div class="cart-discount d-flex gap-2">
+                                        <p class="line price-on-card">${{ item.price }}</p>
+                                        <p class="price">${{ item.get_price_with_discount|floatformat:2 }}</p>
+                                    </div>
+                                {% else %}
+                                    <p class="detail-price">
+                                        ${{ item.price }}
+                                    </p>
+                                {% endif %}
                             </div>
                         </a>
                     </div>

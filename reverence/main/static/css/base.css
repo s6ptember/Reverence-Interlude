@@ -349,3 +349,60 @@ input[type="number"]::-webkit-outer-spin-button {
 .right-side-items {
     text-align: right;
 }
+
+.block1, .block2 input {
+    width: 250px;
+}
+
+.p-on-order {
+    width: 250px;
+}
+
+.order-item{
+    padding: 10px;
+}
+
+.order {
+    border-bottom: 1px solid #fff;
+    padding: 40px 0 40px 20px;
+}
+
+.block-tag, .profile-btn {
+    width: 250px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.loginform p {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.loginform p input {
+    all: unset;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+    width: 350px;
+}
+
+.form-group input {
+    all: unset;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+    width: 350px;
+}
+
+.line {
+    text-decoration: line-through;
+}
+
+.price {
+    font-size: 24px;
+}
+
+.price-on-card {
+    padding-top: 5px;
+}

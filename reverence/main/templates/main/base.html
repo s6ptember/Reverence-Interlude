@@ -24,7 +24,7 @@
             </form>
         </div> {% endcomment %}
         <div class="header-nav d-flex gap-4">
-            <a href="#" class="h-profile">
+            <a href="{% url 'users:profile' %}" class="h-profile">
                 <img src="{% static 'img/profile.png' %}" alt="">
             </a>
             <a href="{% url 'cart:cart_detail' %}" class="h-profile">
@@ -35,9 +35,9 @@
                     <img src="{% static 'img/search.png' %}" alt="">
                 </a>
                 <div class="search-popup" id="search-popup" style="display: none;">
-                    <form class="search-form" method="GET" action="" id="search-form">
+                    <form class="search-form" method="GET" action="{% url 'main:catalog' %}" id="search-form">
                         <div class="input-container">
-                            <input type="text" class="form_input" name="q" placeholder="Search">
+                            <input type="text" class="form_input" name="q" placeholder="Search" value="{{ search_query }}">
                             <button type="submit" class="btnforsearch"></button>
                         </div>
                     </form>

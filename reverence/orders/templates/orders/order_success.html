@@ -1,0 +1,12 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Reverence Interlude - Order Success{% endblock title %}
+
+{% block content %}
+    <div class="success-order-page text-center">
+        <h2>Thank you for your order!</h2>
+        <p>Your orderd has been successfully processed. We will be in touch with you shortly.</p>
+        <a href="{% url 'main:catalog' %}">Back to catalogue</a>
+    </div>
+{% endblock content %}

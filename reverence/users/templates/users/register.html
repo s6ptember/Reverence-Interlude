@@ -6,7 +6,7 @@
 {% block content %}
     <div class="login-container d-flex justify-content-center">
         <div class="login d-flex flex-column">
-            <h3 class="text-center mb-3">Registration</h3>
+            <h3 class="text-center mt-5 mb-5">Registration</h3>
             <form method="post" class="loginform">
                 {% csrf_token %}
                 {% for field in form %}
@@ -19,8 +19,8 @@
                     </div>
                 {% endfor %}
                 <div class="loginbtns d-flex justify-content-between align-items-center">
-                    <button class="default-btn mt-3">Register</button>
-                    <a href="{% url 'users:login' %}" class="create-account-btn">Have account?</a>
+                    <button type="submit" class="default-btn mt-3">Register</button>
+                    <a href="{% url 'users:user_login' %}" class="create-account-btn">Have account?</a>
                 </div>
             </form>
         </div>

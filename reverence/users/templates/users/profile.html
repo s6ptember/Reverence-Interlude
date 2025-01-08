@@ -1,0 +1,88 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Reverence Interlude - Profile{% endblock title %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Orders history</h1>
+    <div class="profile d-flex flex-column gap-4 justify-content-center">
+        <div class="profile-history">
+            <div class="table-head d-flex justify-content-between align-items-center">
+                <div class="left-side-head">
+                    <p class="table-p">Product</p>
+                </div>
+                <div class="right-side-head d-flex gap-3">
+                    <p class="table-p c-item-total">Price</p>
+                    <p class="table-p c-item-quantity">Quantity</p>
+                    <p class="table-p c-item-price">Total</p>
+                </div>
+            </div>
+            <div class="table-items">
+                {% if orders|length == 0 %}
+                    <div class="empty-orders-message text-center">
+                        <h3 class="mt-5">You have no orders.</h3>
+                    </div>
+                {% else %}
+                    {% for order in orders %}
+                        <div class="order">
+                            Order №{{ order.id }}
+                            {% for item in order.items.all %}
+                                <div class="order-item d-flex justify-content-between align-items-center">
+                                    <div class="left-side-items d-flex">
+                                        <div class="c-item-img">
+                                            <img src="{{ item.clothing_item.image.url }}" alt="">
+                                        </div>
+                                        <div class="c-item-info">
+                                            <a href="{% url "main:clothing_item_detail" item.clothing_item.slug %}" class="item-name-in-cart p-3">{{ item.item.name }}</a>
+                                            <p class="item-size-bottom fw-bold p-3">{{ item.size }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="right-side-items d-flex gap-3">
+                                        <div class="c-item-price">
+                                            ${{ item.total_price|floatformat:2 }}
+                                        </div>
+                                        <div class="c-item-quantity">
+                                            1
+                                        </div>
+                                        <div class="c-item-total">
+                                            ${{ item.total_price|floatformat:2 }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="track mt-2">Tracking number: {{ order.tracking_number }}</div> 
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-info">
+        <h3 class="mb-5 mt-5">Ordering data</h3>
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+            <div class="form-blocks d-flex gap-4">
+                <div class="block1 d-flex flex-column gap-1">
+                    {{ form.first_name.label_tag }} {{ form.first_name }} <br>
+                    {{ form.last_name.label_tag }} {{ form.last_name }} <br>
+                    {{ form.middle_name.label_tag }} {{ form.middle_name }} <br>
+                    {{ form.city.label_tag }} {{ form.city }} <br>
+                    {{ form.street.label_tag }} {{ form.street }} <br>
+                    {{ form.house_number.label_tag }} {{ form.house_number }} <br>
+                </div>
+                <div class="block2 d-flex flex-column gap-1">
+                    {{ form.apartment_number.label_tag }} {{ form.apartment_number }} <br>
+                    {{ form.postal_code.label_tag }} {{ form.postal_code }} <br>
+                    <div class="p-on-order d-flex flex-column justify-content-center align-items-center">
+                        <p class="block-tag mt-4 text-center">The information will be used when placing an order.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-buttons mt-4 d-flex justify-content-between">
+                <button class="default-btn profile-btn">Save</button>
+                <a href="{% url 'users:user_logout' %}" class="logout-btn d-flex align-items-center">Log out of your account</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

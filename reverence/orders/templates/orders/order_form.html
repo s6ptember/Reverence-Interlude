@@ -1,0 +1,90 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Reverence Interlude - Order Create{% endblock title %}
+
+{% block content %}
+    <div class="order-form-container mt-5 d-flex flex-column gap-5">
+        <h1 class="text-center mb-5">Create Order</h1>
+        <div class="table-cart">
+            <div class="table-head d-flex justify-content-between align-items-center">
+                <div class="left-side-head">
+                    <p class="table-p">Product</p>
+                </div>
+                <div class="right-side-head d-flex gap-3">
+                    <p class="table-p c-item-total">Price</p>
+                    <p class="table-p c-item-quantity">Quantity</p>
+                    <p class="table-p c-item-price">Total</p>
+                </div>
+            </div>
+            <div class="table-items">
+                {% if cart|length == 0 %}
+                    <div class="empty-cart-message d-flex flex-column justify-content-center align-items-center text-center">
+                        <h3 class="mt-5 mb-5">Your cart is empty.</h3>
+                        <a href="{% url "main:catalog" %}" class="default-btn">Product list</a>
+                    </div>
+                {% else %}
+                    {% for item in cart %}
+                        <div class="cart-item d-flex justify-content-between align-items-center">
+                            <div class="left-side-items d-flex">
+                                <div class="c-item-img">
+                                    <img src="{{ item.item.image.url }}" alt="">
+                                </div>
+                                <div class="c-item-info">
+                                    <a href="{% url "main:clothing_item_detail" item.item.slug %}" class="item-name-in-cart p-3">{{ item.item.name }}</a>
+                                    <p class="item-size-bottom fw-bold p-3">{{ item.size }}</p>
+                                </div>
+                            </div>
+                            <div class="right-side-items d-flex gap-3">
+                                <div class="c-item-price">
+                                    ${{ item.total_price|floatformat:2 }}
+                                </div>
+                                <div class="c-item-quantity">
+                                    <form action="{% url "cart:cart_update" item.item.id %}" id="update-form-{{ item.item.id }}" method="post" class="c-quantity-form">
+                                        {% csrf_token %}
+                                        <input type="number" class="text-center" name="quantity" value="{{ item.quantity }}" min="1" required id="quantity-{{ item.item.id }}" oninput="updateCart({{ item.item.id }})">
+                                        <a href="{% url "cart:cart_remove" item.item.id %}">Remove</a>
+                                    </form>
+                                </div>
+                                <div class="c-item-total">
+                                    ${{ item.total_price|floatformat:2 }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <h3 class="total_price_cart mt-3">Total price: ${{ cart.get_total_price|floatformat:2 }}</h3>
+        <div class="form-for-order">
+            <form method="post" class="d-flex gap-5">
+                {% csrf_token %}
+                <div class="form-blocks d-flex gap-4">
+                    <div class="block1 d-flex flex-column gap-1">
+                        {{ form.first_name.label_tag }} {{ form.first_name }} <br>
+                        {{ form.last_name.label_tag }} {{ form.last_name }} <br>
+                        {{ form.middle_name.label_tag }} {{ form.middle_name }} <br>
+                        {{ form.city.label_tag }} {{ form.city }} <br>
+                        {{ form.street.label_tag }} {{ form.street }} <br>
+                        {{ form.house_number.label_tag }} {{ form.house_number }} <br>
+                    </div>
+                    <div class="block2 d-flex flex-column gap-1">
+                        {{ form.apartment_number.label_tag }} {{ form.apartment_number }} <br>
+                        {{ form.postal_code.label_tag }} {{ form.postal_code }} <br>
+                        <p class="p-on-order text-center mt-5">Please double-check all the information befors payment.</p>
+                    </div>
+                </div>
+
+                <div class="order-total-info">
+                    <div class="total-for-order d-flex flex-column gap-2">
+                        <div class="total-view">
+                            <h4 class="fw-bold">Total: ${{ total_price|floatformat:2 }}</h4>
+                        </div>
+                        <button class="default-btn order-form-btn">Place Order</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
